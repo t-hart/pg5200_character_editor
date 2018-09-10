@@ -9,18 +9,25 @@ namespace CharacterEditor.Model
 {
     public class Stat : IResettable, IAddable
     {
+        const uint STAT_MAX = 20;
         public string Name { get; }
         public string DisplayName { get; }
 
-        public int Value { get; set; }
+        private uint _value;
+        public uint Value
+        {
+            get => _value;
+            set => _value = Stat.Clamp(value);
+        }
 
-        private readonly int _defaultValue;
+        private readonly uint _defaultValue = 0;
 
-        public Stat([NotNull] string name, [NotNull] string displayName, int defaultValue)
+        public Stat([NotNull] string name, [NotNull] string displayName, uint value, uint defaultValue)
         {
             Name = name;
             DisplayName = displayName;
-            _defaultValue = defaultValue;
+            Value = value;
+            _defaultValue = Stat.Clamp(defaultValue);
         }
 
         public void Reset()
@@ -28,6 +35,8 @@ namespace CharacterEditor.Model
             Value = _defaultValue;
         }
 
-        public int Add(int x) => (Value += x);
+        public uint Add(uint x) => (Value += x);
+
+        public static uint Clamp(uint x) => Math.Min(x, STAT_MAX);
     }
 }

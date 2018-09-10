@@ -19,17 +19,42 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Bottom"
-                   TextWrapping="Wrap" Margin="17,19,19,196.667" Width="514" Height="55" HorizontalAlignment="Center" />
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="117,188,0,0" TextWrapping="Wrap" Text="{Binding Strength.Value, Mode=TwoWay}" VerticalAlignment="Top" Width="84"/>
-        <Button Content="Reset" HorizontalAlignment="Left" Margin="226,187,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.513,0.547" Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Strength, Mode=OneWay}"/>
-        <Button Content="Increment" HorizontalAlignment="Left" Margin="226,221,0,0" VerticalAlignment="Top" Width="75" Command="{Binding IncrementCommand, Mode=OneWay}"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="132,140,0,0" TextWrapping="Wrap" Text="{Binding Test}" VerticalAlignment="Top" Width="120"/>
+        <Button Content="Reset" HorizontalAlignment="Left" Margin="226,187,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.513,0.547" Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Strength, Mode=OneWay}"/>
+        <Button Content="Increment" HorizontalAlignment="Left" Margin="226,221,0,0" VerticalAlignment="Top" Width="75" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Strength}"/>
+        <Grid HorizontalAlignment="Left" Height="187" Margin="35,63,0,0" VerticalAlignment="Top" Width="175">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="34*"/>
+                <ColumnDefinition Width="35*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="{Binding Character.Strength.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0.667,0.333,0" Grid.Row="1" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
+            <Label Content="{Binding Character.Dexterity.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0,0.333,0" Grid.Row="2" VerticalAlignment="Top" HorizontalContentAlignment="Right" Grid.RowSpan="2"/>
+            <Label Content="{Binding Character.Constitution.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0.333,0.333,0" Grid.Row="3" VerticalAlignment="Top" HorizontalContentAlignment="Right" Grid.RowSpan="2"/>
+            <Label Content="{Binding Character.Intelligence.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0.667,0.333,0" Grid.Row="4" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
+            <Label Content="{Binding Character.Wisdom.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0.333,0.333,0" Grid.Row="5" VerticalAlignment="Top" HorizontalContentAlignment="Right" Grid.RowSpan="2"/>
+            <Label Content="{Binding Character.Charisma.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0.667,0.333,0" Grid.Row="6" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="34"/>
+            <Label Content="ATTRIBUTES" HorizontalAlignment="Left" VerticalAlignment="Top" Grid.ColumnSpan="5" Width="121" Height="36" Margin="10,0,0,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+            <TextBox HorizontalAlignment="Center" Margin="7.667,5.667,3.667,2" TextWrapping="Wrap" Text="{Binding Strength}" Grid.Row="1" Grid.Column="1" Width="20" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Center" Margin="7.667,3,3.667,0.667" TextWrapping="Wrap" Text="{Binding Dexterity}" Grid.Row="2" Grid.Column="1" Width="20" Height="21" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Center" Margin="7.667,4.333,3.667,2.333" TextWrapping="Wrap" Text="{Binding Constitution}" Width="20" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Center" Margin="7.667,5.667,3.667,1.667" TextWrapping="Wrap" Text="{Binding Intelligence}" Width="20" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Center" Margin="7.667,4.333,3.667,2.333" TextWrapping="Wrap" Text="{Binding Wisdom}" Width="20" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Center" Margin="7.667,4.667,3.667,2.667" TextWrapping="Wrap" Text="{Binding Charisma}" Width="20" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center"/>
+            <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" Margin="8.333,3.667,3,1" Grid.Row="1" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Strength, Mode=OneWay}"/>
+            <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8,3.667,2.667,1" Grid.Row="1" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Strength}"/>
+            <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,3.667,3,1" Grid.Row="1" VerticalAlignment="Center" Padding="1" Grid.ColumnSpan="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Strength}"/>
+        </Grid>
 
     </Grid>
 </Window>

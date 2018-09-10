@@ -1,3 +1,4 @@
+using System;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using CharacterEditor.Model;
@@ -15,29 +16,105 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        public Character Character { get; set; } = new Character { Name = "Thorin" };
-
-        private int _test;
-        public int Test
+        private Character _character = new Character("Thorin", 16);
+        public Character Character
         {
-            get => _test;
-            //set { _test = value; RaisePropertyChanged(); }
-            set { _test = value; }
-        }
-
-        public Stat Strength
-        {
-            get => Character.Strength;
+            get => _character;
             set
             {
-                if (value.Value == Strength.Value) return;
-                Strength.Value = value.Value;
+                if (value == Character) { return; }
+                _character = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        public uint Strength
+        {
+            get => Character.Strength.Value;
+            set
+            {
+                var previousValue = Strength;
+                Character.Strength.Value = value;
+                if (previousValue != Strength)
+                {
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public uint Dexterity
+        {
+            get => Character.Dexterity.Value;
+            set
+            {
+                var previousValue = Dexterity;
+                Character.Dexterity.Value = value;
+                if (previousValue != Dexterity)
+                {
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public uint Constitution
+        {
+            get => Character.Constitution.Value;
+            set
+            {
+                var previousValue = Constitution;
+                Character.Constitution.Value = value;
+                if (previousValue != Constitution)
+                {
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public uint Intelligence
+        {
+            get => Character.Intelligence.Value;
+            set
+            {
+                var previousValue = Intelligence;
+                Character.Intelligence.Value = value;
+                if (previousValue != Intelligence)
+                {
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public uint Wisdom
+        {
+            get => Character.Wisdom.Value;
+            set
+            {
+                var previousValue = Wisdom;
+                Character.Wisdom.Value = value;
+                if (previousValue != Wisdom)
+                {
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public uint Charisma
+        {
+            get => Character.Charisma.Value;
+            set
+            {
+                var previousValue = Charisma;
+                Character.Charisma.Value = value;
+                if (previousValue != Charisma)
+                {
+                    RaisePropertyChanged();
+                }
             }
         }
 
         public ICommand ResetCommand { get; private set; }
         public ICommand IncrementCommand { get; private set; }
+        public ICommand DecrementCommand { get; private set; }
 
         /// <summary>
         /// The <see cref="WelcomeTitle" /> property's name.
@@ -48,7 +125,7 @@ namespace CharacterEditor.ViewModel
 
         /// <summary>
         /// Gets the WelcomeTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
+        /// Changes to that property's value raise the PropertyChanged event.
         /// </summary>
         public string WelcomeTitle
         {
@@ -73,10 +150,11 @@ namespace CharacterEditor.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
-    
-            ResetCommand = new RelayCommand<IResettable>((x) => { x.Reset(); RaisePropertyChanged(); });
-            IncrementCommand = new RelayCommand(() => { Strength.Add(1); RaisePropertyChanged(); });
-            // IncrementCommand = new RelayCommand(() => { Test += 1; });
+
+            ResetCommand = new RelayCommand(() => Strength = 0);
+            // IncrementCommand = new RelayCommand<IAddable>(x => { x.Add(1); RaisePropertyChanged(); });
+            IncrementCommand = new RelayCommand(() => Strength += 1);
+            DecrementCommand = new RelayCommand(() => Strength -= 1);
         }
 
         ////public override void Cleanup()

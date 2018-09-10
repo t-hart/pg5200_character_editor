@@ -16,5 +16,10 @@ namespace CharacterEditor
             InitializeComponent();
             Closing += (s, e) => ViewModelLocator.Cleanup();
         }
+
+        private void DataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

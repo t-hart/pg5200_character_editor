@@ -8,6 +8,6 @@ namespace CharacterEditor.Model
 {
     interface IAddable
     {
-        int Add(int x);
+        uint Add(uint x);
     }
 }
