@@ -17,7 +17,7 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        private Character _character = new Character("Thorin", Race.Dwarf, strength: 16, level:100);
+        private Character _character = new Character("Thorin", Race.Human, strength: 16, level:100);
         public Character Character
         {
             get => _character;
