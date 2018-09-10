@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using CharacterEditor.Model;
@@ -16,7 +17,7 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        private Character _character = new Character("Thorin", 16);
+        private Character _character = new Character("Thorin", Race.Dwarf, strength: 16, level:100);
         public Character Character
         {
             get => _character;
@@ -24,6 +25,31 @@ namespace CharacterEditor.ViewModel
             {
                 if (value == Character) { return; }
                 _character = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string[] Races { get; } = Enum.GetNames(typeof(Race)).OrderBy(x => x).ToArray();
+
+        public Race Race
+        {
+            get => Character.Race;
+            set
+            {
+                if (value == Race) { return; }
+                Character.Race = value;
+                RaisePropertyChanged();
+            }
+
+        }
+
+        public string Name
+        {
+            get => Character.Name;
+            set
+            {
+                if (value == Name) { return; }
+                Character.Name = value;
                 RaisePropertyChanged();
             }
         }
@@ -106,6 +132,20 @@ namespace CharacterEditor.ViewModel
                 var previousValue = Charisma;
                 Character.Charisma.Value = value;
                 if (previousValue != Charisma)
+                {
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        public uint Level
+        {
+            get => Character.Level.Value;
+            set
+            {
+                var previousValue = Level;
+                Character.Level.Value = value;
+                if (previousValue != Level)
                 {
                     RaisePropertyChanged();
                 }

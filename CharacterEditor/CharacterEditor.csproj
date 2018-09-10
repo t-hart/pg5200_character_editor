@@ -81,6 +81,7 @@
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\IDefault.cs" />
     <Compile Include="Model\IResettable.cs" />
+    <Compile Include="Model\Race.cs" />
     <Compile Include="Model\Stat.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

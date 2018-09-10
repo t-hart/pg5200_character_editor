@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace CharacterEditor.Model
@@ -17,47 +11,35 @@ namespace CharacterEditor.Model
         [NotNull] public Stat Intelligence { get; set; }
         [NotNull] public Stat Wisdom { get; set; }
         [NotNull] public Stat Charisma { get; set; }
+        [NotNull] public Stat Level { get; set; }
+        [NotNull] public Race Race { get; set; }
 
         public void Reset()
         {
+            Name = "";
             Strength.Reset();
+            Dexterity.Reset();
+            Constitution.Reset();
+            Intelligence.Reset();
+            Wisdom.Reset();
+            Charisma.Reset();
+            Level.Reset();
+            Race = Race.Human;
         }
 
-        public Character(string name, uint strength = 0, uint dexterity = 0, uint constitution = 0, uint intelligence = 0, uint wisdom = 0, uint charisma = 0)
+        public Character([NotNull] string name, [NotNull] Race race, uint strength = 0, uint dexterity = 0, uint constitution = 0, uint intelligence = 0, uint wisdom = 0, uint charisma = 0, uint level = 1)
         {
+            Stat Attribute(string attrName, string displayName, uint value) => new Stat(0, 20, 0, attrName, displayName, value);
+
             Name = name;
-            Strength = new Stat("Strength", "STR", strength, 0);
-            Dexterity = new Stat("Dexterity", "DEX", dexterity, 0);
-            Constitution = new Stat("Constitution", "CON", constitution, 0);
-            Intelligence = new Stat("Intelligence", "INT", intelligence, 0);
-            Wisdom = new Stat("Wisdom", "WIS", wisdom, 0);
-            Charisma = new Stat("Charisma", "CHA", charisma, 0);
+            Race = race;
+            Strength = Attribute("Strength", "STR", strength);
+            Dexterity = Attribute("Dexterity", "DEX", dexterity);
+            Constitution = Attribute("Constitution", "CON", constitution);
+            Intelligence = Attribute("Intelligence", "INT", intelligence);
+            Wisdom = Attribute("Wisdom", "WIS", wisdom);
+            Charisma = Attribute("Charisma", "CHA", charisma);
+            Level = new Stat(1, 100, 1, "Level", "LVL", level);
         }
-
-        public override bool Equals(object obj) => obj is Character other && this.Equals(other);
-
-        protected bool Equals(Character other)
-        {
-            return string.Equals(Name, other.Name) && Strength.Equals(other.Strength) && Dexterity.Equals(other.Dexterity) && Constitution.Equals(other.Constitution) && Intelligence.Equals(other.Intelligence) && Wisdom.Equals(other.Wisdom) && Charisma.Equals(other.Charisma);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = Name.GetHashCode();
-                hashCode = (hashCode * 397) ^ Strength.GetHashCode();
-                hashCode = (hashCode * 397) ^ Dexterity.GetHashCode();
-                hashCode = (hashCode * 397) ^ Constitution.GetHashCode();
-                hashCode = (hashCode * 397) ^ Intelligence.GetHashCode();
-                hashCode = (hashCode * 397) ^ Wisdom.GetHashCode();
-                hashCode = (hashCode * 397) ^ Charisma.GetHashCode();
-                return hashCode;
-            }
-        }
-
-        public static bool operator ==([NotNull] Character a, [NotNull] Character b) => a.Equals(b);
-        public static bool operator !=([NotNull] Character a, [NotNull] Character b) => !(a == b);
-
     }
 }
