@@ -8,6 +8,6 @@ namespace CharacterEditor.Model
 {
     public interface IResettable
     {
-        void Reset();
+        IResettable Reset();
     }
 }

@@ -88,11 +88,12 @@
     <Compile Include="Model\IResettable.cs" />
     <Compile Include="Model\Race.cs" />
     <Compile Include="Model\Stat.cs" />
-    <Compile Include="Model\StatValidator.cs" />
     <Compile Include="StatRow.xaml.cs">
       <DependentUpon>StatRow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\ISubtractable.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\StatRowViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

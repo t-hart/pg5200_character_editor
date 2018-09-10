@@ -1,12 +1,14 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
+using CharacterEditor.ViewModel;
 using JetBrains.Annotations;
 
 namespace CharacterEditor.Model
 {
-    public class Stat : ValidationRule, IResettable, IAddable
+    public class Stat : ValidationRule, IResettable, IAddable, ISubtractable
     {
         public string Name { get; }
         public string DisplayName { get; }
@@ -33,12 +35,23 @@ namespace CharacterEditor.Model
 
         }
 
-        public void Reset()
+        public IResettable Reset()
         {
             Value = _defaultValue;
+            return this;
         }
 
-        public uint Add(uint x) => (Value += x);
+        public IAddable Add(uint x)
+        {
+            Value += x;
+            return this;
+        }
+
+        public ISubtractable Subtract(uint x)
+        {
+            Value -= x;
+            return this;
+        }
 
         public uint Clamp(uint x) => x < _minValue ? _minValue : x > _maxValue ? _maxValue : x;
 
@@ -78,4 +91,3 @@ namespace CharacterEditor.Model
         public static Func<object, CultureInfo, ValidationResult> ValidateStat(Stat x) => x.Validate;
     }
 }
-    

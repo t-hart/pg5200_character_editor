@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CharacterEditor.Model
 {
-    interface IAddable
+    public interface IAddable
     {
-        uint Add(uint x);
+        IAddable Add(uint x);
     }
 }

@@ -31,9 +31,9 @@ namespace CharacterEditor.ViewModel
         }
 
         public List<string> Races { get; }
-        private readonly List<int> _raceMap;
+        private readonly List<int> _raceIndices;
 
-        public int RaceIndex => _raceMap[(int) Race];
+        public int RaceIndex => _raceIndices[(int) Race];
         public Race Race
         {
             get => Character.Race;
@@ -196,9 +196,12 @@ namespace CharacterEditor.ViewModel
 
             ResetCommand = new RelayCommand(() => Strength = 0);
             // IncrementCommand = new RelayCommand<IAddable>(x => { x.Add(1); RaisePropertyChanged(); });
-            IncrementCommand = new RelayCommand(() => Strength += 1);
+            ResetCommand = new RelayCommand<IResettable>(x => Set(ref x, x.Reset()));
+            IncrementCommand = new RelayCommand<IAddable>(x => Set(ref x, x.Add(1)));
+            DecrementCommand = new RelayCommand<ISubtractable>(x => Set(ref x, x.Subtract(1)));
+            // IncrementCommand = new RelayCommand(() => Strength += 1);
             DecrementCommand = new RelayCommand(() => Strength -= 1);
-            (Races, _raceMap) =
+            (Races, _raceIndices) =
                 Enum.GetNames(typeof(Race))
                 .Select((x, i) => (x, (int) Enum.Parse(typeof(Race), x)))
                 .OrderBy(tuple => tuple.Item1)

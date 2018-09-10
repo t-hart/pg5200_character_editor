@@ -14,7 +14,7 @@ namespace CharacterEditor.Model
         [NotNull] public Stat Level { get; set; }
         [NotNull] public Race Race { get; set; }
 
-        public void Reset()
+        public IResettable Reset()
         {
             Name = "";
             Strength.Reset();
@@ -25,6 +25,7 @@ namespace CharacterEditor.Model
             Charisma.Reset();
             Level.Reset();
             Race = Race.Human;
+            return this;
         }
 
         public Character([NotNull] string name, [NotNull] Race race, uint strength = 0, uint dexterity = 0, uint constitution = 0, uint intelligence = 0, uint wisdom = 0, uint charisma = 0, uint level = 1)

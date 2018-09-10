@@ -2,9 +2,12 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:CharacterEditor"
-             mc:Ignorable="d" d:DesignWidth="185.333" Background="#FFFF" Height="25">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:CharacterEditor.ViewModel"
+             mc:Ignorable="d" d:DesignWidth="185.333" Background="#3FFF" Height="25">
+             <UserControl.DataContext>
+                 <viewModel:StatRowViewModel></viewModel:StatRowViewModel>
+             </UserControl.DataContext>
     <Grid Background="#0000">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -13,10 +16,19 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Label Content="CON" HorizontalAlignment="Right" Grid.Column="0" Margin="5,1,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="25" Width="35"/>
-        <TextBox HorizontalAlignment="Center"  TextWrapping="Wrap" Text="20" Grid.Column="1" Width="20" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="18" Margin="5,0"/>
-        <Button Content="+" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="20" Padding="1" Height="20" Margin="5,0" />
-        <Button Content="-" Grid.Column="3" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="20" Padding="1" Height="20" Margin="5,0" />
-        <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center"  VerticalAlignment="Center" Padding="1" Height="20" Width="32" Margin="5,0" />
+        <Label Content="{Binding Stat.DisplayName}" HorizontalAlignment="Right" Grid.Column="0" Margin="5,1,5,0"
+               VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="25" Width="35" />
+        <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Stat.Value}" Grid.Column="1" Width="20"
+                 VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="18" Margin="5,0" />
+        <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20"
+                Padding="1" Height="20" Margin="5,0" Command="{Binding IncrementCommand}" CommandParameter="{Binding Stat}" />
+        <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20"
+                Padding="1" Height="20" Margin="5,0"
+                Command="{Binding DecrementCommand}"
+                CommandParameter="{Binding Stat}" />
+        <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="1"
+                Height="20" Width="32" Margin="5,0"
+                Command="{Binding ResetCommand}"
+                CommandParameter="{Binding Stat}" />
     </Grid>
 </UserControl>
