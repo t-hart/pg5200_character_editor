@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
@@ -17,7 +18,7 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        private Character _character = new Character("Thorin", Race.Human, strength: 16, level:100);
+        private Character _character = new Character("Thorin", Race.Goblin, strength: 16, level:100);
         public Character Character
         {
             get => _character;
@@ -29,8 +30,10 @@ namespace CharacterEditor.ViewModel
             }
         }
 
-        public string[] Races { get; } = Enum.GetNames(typeof(Race)).OrderBy(x => x).ToArray();
+        public List<string> Races { get; }
+        private readonly List<int> _raceMap;
 
+        public int RaceIndex => _raceMap[(int) Race];
         public Race Race
         {
             get => Character.Race;
@@ -195,6 +198,16 @@ namespace CharacterEditor.ViewModel
             // IncrementCommand = new RelayCommand<IAddable>(x => { x.Add(1); RaisePropertyChanged(); });
             IncrementCommand = new RelayCommand(() => Strength += 1);
             DecrementCommand = new RelayCommand(() => Strength -= 1);
+            (Races, _raceMap) =
+                Enum.GetNames(typeof(Race))
+                .Select((x, i) => (x, (int) Enum.Parse(typeof(Race), x)))
+                .OrderBy(tuple => tuple.Item1)
+                .Aggregate((new List<string>(), new List<int>()), (acc, x) =>
+                    {
+                        acc.Item1.Add(x.Item1);
+                        acc.Item2.Add(x.Item2);
+                        return acc;
+                    });
         }
 
         ////public override void Cleanup()

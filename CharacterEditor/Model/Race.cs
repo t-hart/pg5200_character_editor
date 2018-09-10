@@ -12,6 +12,7 @@ namespace CharacterEditor.Model
         Dwarf,
         Elf,
         Goblin,
-        Bugbear
+        Hobgoblin,
+        Giant
     }
 }

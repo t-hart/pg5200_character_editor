@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:model="clr-namespace:CharacterEditor.Model"
+        xmlns:characterEditor="clr-namespace:CharacterEditor"
         mc:Ignorable="d ignore"
         Height="300"
         Width="556.787"
@@ -91,6 +93,24 @@
                 <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8.333,5,3.667,3" Grid.Row="8" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Charisma}"/>
                 <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,5,2.667,3" Grid.Row="8" VerticalAlignment="Center" Padding="1" Grid.ColumnSpan="1" Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Charisma, Mode=OneWay}"/>
             </Grid>
+            <Grid Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="6" HorizontalAlignment="Center" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="ATTRIBUTES"  VerticalAlignment="Center"  FontWeight="Bold" HorizontalAlignment="Center"/>
+                <characterEditor:StatRow Grid.Row="1"/>
+                <characterEditor:StatRow Grid.Row="2"/>
+                <characterEditor:StatRow Grid.Row="3"/>
+                <characterEditor:StatRow Grid.Row="4"/>
+                <characterEditor:StatRow Grid.Row="5"/>
+                <characterEditor:StatRow Grid.Row="6"/>
+            </Grid>
             <Button Content="Save" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Grid.ColumnSpan="3" Grid.Column="6" Grid.Row="2"/>
             <Button Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Grid.ColumnSpan="3" Grid.Column="9" Grid.Row="2"/>
             <Grid Grid.ColumnSpan="5" Margin="34,0,21.333,0.333" Grid.Row="0" Width="148">
@@ -117,7 +137,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Race:" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Right" Grid.RowSpan="2"/>
-                <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="3.667,4,-117,0" VerticalAlignment="Top" Grid.Row="0" Width="120" Grid.RowSpan="2" ItemsSource="{Binding Races}" SelectedIndex="{Binding Race}"/>
+                <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="3.667,4,-117,0" VerticalAlignment="Top" Grid.Row="0" Width="120" Grid.RowSpan="2" ItemsSource="{Binding Races}" SelectedIndex="{Binding RaceIndex, Mode=OneWay}"/>
             </Grid>
             <Grid Grid.ColumnSpan="4" Margin="41,0,0,4.667" Grid.Row="0" Grid.Column="9" Width="123">
                 <Grid.ColumnDefinitions>
@@ -125,7 +145,6 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Level:" HorizontalAlignment="Left" Margin="0,0.333,0.333,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Grid.RowSpan="1"/>
-                <TextBox HorizontalAlignment="Right" Margin="0,4,-18.667,1" TextWrapping="Wrap" Text="{Binding Level}" Grid.Column="1" Height="21" VerticalAlignment="Center" HorizontalContentAlignment="Right" Width="26"/>
             </Grid>
         </Grid>
 

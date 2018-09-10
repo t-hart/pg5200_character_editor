@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Controls;
 using JetBrains.Annotations;
@@ -73,5 +74,8 @@ namespace CharacterEditor.Model
                 ? new ValidationResult(false, $"Value must be between {_minValue} and {_maxValue}")
                 : ValidationResult.ValidResult;
         }
+
+        public static Func<object, CultureInfo, ValidationResult> ValidateStat(Stat x) => x.Validate;
     }
 }
+    
