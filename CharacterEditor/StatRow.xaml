@@ -4,10 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:CharacterEditor.ViewModel"
-             mc:Ignorable="d" d:DesignWidth="185.333" Background="#3FFF" Height="25">
-             <UserControl.DataContext>
-                 <viewModel:StatRowViewModel></viewModel:StatRowViewModel>
-             </UserControl.DataContext>
+             xmlns:model="clr-namespace:CharacterEditor.Model"
+             mc:Ignorable="d" d:DesignWidth="185.333" Background="#3FFF" Height="25"
+             d:DataContext="{d:DesignData StatRowViewModel}">
     <Grid Background="#0000">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -18,8 +17,9 @@
         </Grid.ColumnDefinitions>
         <Label Content="{Binding Stat.DisplayName}" HorizontalAlignment="Right" Grid.Column="0" Margin="5,1,5,0"
                VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="25" Width="35" />
-        <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Stat.Value}" Grid.Column="1" Width="20"
-                 VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="18" Margin="5,0" />
+        <TextBox HorizontalAlignment="Center" TextWrapping="Wrap"  Grid.Column="1" Width="20" Text="{Binding Stat.Value}"
+                 VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="18" Margin="5,0" >
+        </TextBox>
         <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20"
                 Padding="1" Height="20" Margin="5,0" Command="{Binding IncrementCommand}" CommandParameter="{Binding Stat}" />
         <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20"

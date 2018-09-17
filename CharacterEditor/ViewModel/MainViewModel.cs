@@ -5,6 +5,7 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using CharacterEditor.Model;
 using GalaSoft.MvvmLight.CommandWpf;
+using JetBrains.Annotations;
 
 namespace CharacterEditor.ViewModel
 {
@@ -18,7 +19,7 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        private Character _character = new Character("Thorin", Race.Goblin, strength: 16, level:100);
+        private Character _character = new Character("Thorin", Race.Goblin, strength: 16, level: 100);
         public Character Character
         {
             get => _character;
@@ -33,7 +34,7 @@ namespace CharacterEditor.ViewModel
         public List<string> Races { get; }
         private readonly List<int> _raceIndices;
 
-        public int RaceIndex => _raceIndices[(int) Race];
+        public int RaceIndex => _raceIndices[(int)Race];
         public Race Race
         {
             get => Character.Race;
@@ -57,89 +58,12 @@ namespace CharacterEditor.ViewModel
             }
         }
 
-        public uint Strength
-        {
-            get => Character.Strength.Value;
-            set
-            {
-                var previousValue = Strength;
-                Character.Strength.Value = value;
-                if (previousValue != Strength)
-                {
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public uint Dexterity
-        {
-            get => Character.Dexterity.Value;
-            set
-            {
-                var previousValue = Dexterity;
-                Character.Dexterity.Value = value;
-                if (previousValue != Dexterity)
-                {
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public uint Constitution
-        {
-            get => Character.Constitution.Value;
-            set
-            {
-                var previousValue = Constitution;
-                Character.Constitution.Value = value;
-                if (previousValue != Constitution)
-                {
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public uint Intelligence
-        {
-            get => Character.Intelligence.Value;
-            set
-            {
-                var previousValue = Intelligence;
-                Character.Intelligence.Value = value;
-                if (previousValue != Intelligence)
-                {
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public uint Wisdom
-        {
-            get => Character.Wisdom.Value;
-            set
-            {
-                var previousValue = Wisdom;
-                Character.Wisdom.Value = value;
-                if (previousValue != Wisdom)
-                {
-                    RaisePropertyChanged();
-                }
-            }
-        }
-
-        public uint Charisma
-        {
-            get => Character.Charisma.Value;
-            set
-            {
-                var previousValue = Charisma;
-                Character.Charisma.Value = value;
-                if (previousValue != Charisma)
-                {
-                    RaisePropertyChanged();
-                }
-            }
-        }
+        [NotNull] public StatRowViewModel Strength { get; }
+        [NotNull] public StatRowViewModel Dexterity { get; }
+        [NotNull] public StatRowViewModel Constitution { get; }
+        [NotNull] public StatRowViewModel Intelligence { get; }
+        [NotNull] public StatRowViewModel Wisdom { get; }
+        [NotNull] public StatRowViewModel Charisma { get; }
 
         public uint Level
         {
@@ -147,7 +71,7 @@ namespace CharacterEditor.ViewModel
             set
             {
                 var previousValue = Level;
-                Character.Level.Value = value;
+                Character.Level.Value = previousValue;
                 if (previousValue != Level)
                 {
                     RaisePropertyChanged();
@@ -194,16 +118,16 @@ namespace CharacterEditor.ViewModel
                     WelcomeTitle = item.Title;
                 });
 
-            ResetCommand = new RelayCommand(() => Strength = 0);
-            // IncrementCommand = new RelayCommand<ICounter>(x => { x.Increment(1); RaisePropertyChanged(); });
-            ResetCommand = new RelayCommand<IResettable>(x => Set(ref x, x.Reset()));
-            IncrementCommand = new RelayCommand<Model.ICounter>(x => Set(ref x, x.Increment(1)));
-            DecrementCommand = new RelayCommand<ICounter>(x => Set(ref x, x.Decrement(1)));
-            // IncrementCommand = new RelayCommand(() => Strength += 1);
-            DecrementCommand = new RelayCommand(() => Strength -= 1);
+            Strength = new StatRowViewModel(Character.Strength);
+            Dexterity = new StatRowViewModel(Character.Dexterity);
+            Constitution = new StatRowViewModel(Character.Constitution);
+            Intelligence = new StatRowViewModel(Character.Intelligence);
+            Wisdom = new StatRowViewModel(Character.Wisdom);
+            Charisma = new StatRowViewModel(Character.Charisma);
+
             (Races, _raceIndices) =
                 Enum.GetNames(typeof(Race))
-                .Select((x, i) => (x, (int) Enum.Parse(typeof(Race), x)))
+                .Select((x, i) => (x, (int)Enum.Parse(typeof(Race), x)))
                 .OrderBy(tuple => tuple.Item1)
                 .Aggregate((new List<string>(), new List<int>()), (acc, x) =>
                     {

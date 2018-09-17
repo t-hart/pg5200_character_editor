@@ -12,7 +12,7 @@ namespace CharacterEditor.Model
         [NotNull] public Stat Wisdom { get; set; }
         [NotNull] public Stat Charisma { get; set; }
         [NotNull] public Stat Level { get; set; }
-        [NotNull] public Race Race { get; set; }
+        public Race Race { get; set; }
 
         public IResettable Reset()
         {
@@ -28,7 +28,7 @@ namespace CharacterEditor.Model
             return this;
         }
 
-        public Character([NotNull] string name, [NotNull] Race race, uint strength = 0, uint dexterity = 0, uint constitution = 0, uint intelligence = 0, uint wisdom = 0, uint charisma = 0, uint level = 1)
+        public Character([NotNull] string name, Race race, uint strength = 0, uint dexterity = 0, uint constitution = 0, uint intelligence = 0, uint wisdom = 0, uint charisma = 0, uint level = 1)
         {
             Stat Attribute(string attrName, string displayName, uint value) => new Stat(0, 20, 0, attrName, displayName, value);
 

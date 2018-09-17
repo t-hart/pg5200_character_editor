@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 namespace CharacterEditor.Model
 {
-    public class Stat : ValidationRule, IResettable, ICounter
+    public class Stat : IResettable, ICounter
     {
         public string Name { get; }
         public string DisplayName { get; }
@@ -19,6 +19,7 @@ namespace CharacterEditor.Model
             get => _value;
             set => _value = Clamp(value);
         }
+
 
         private readonly uint _minValue;
         private readonly uint _maxValue;
@@ -32,14 +33,18 @@ namespace CharacterEditor.Model
             _maxValue = maxValue;
             _defaultValue = Clamp(defaultValue);
             Value = value;
-
         }
+
+        public Stat([NotNull] Stat stat) => stat.Clone();
+
+        public Stat Clone() => new Stat(_minValue, _maxValue, _defaultValue, Name, DisplayName, Value);
 
         public IResettable Reset()
         {
             Value = _defaultValue;
             return this;
         }
+
 
         public ICounter Increment(uint x)
         {
@@ -49,45 +54,57 @@ namespace CharacterEditor.Model
 
         public ICounter Decrement(uint x)
         {
-            Value -= x;
+            Value -= Math.Min(x, Value);
             return this;
         }
 
         public uint Clamp(uint x) => x < _minValue ? _minValue : x > _maxValue ? _maxValue : x;
 
-        public override ValidationResult Validate(object value, CultureInfo _ = null)
+        private class Validation : ValidationRule
         {
-            (Exception, uint?) TryParse(object x)
+            private uint Min { get; set; }
+            private uint Max { get; set; }
+
+            public override ValidationResult Validate(object value, CultureInfo _ = null)
             {
-                var s = x as string;
-                if (string.IsNullOrEmpty(s))
+                (Exception, uint?) TryParse(object x)
                 {
-                    return (new ArgumentException("Value must be a string"), null);
+                    var s = x as string;
+                    if (string.IsNullOrEmpty(s))
+                    {
+                        return (new ArgumentException("Value must be a string"), null);
+                    }
+
+                    try
+                    {
+                        return (null, uint.Parse(s));
+                    }
+
+                    catch (Exception e)
+                    {
+                        return (new ArgumentException($"Illegal characters or {e.Message}"), null);
+                    }
+
                 }
 
-                try
+                var (err, res) = TryParse(value);
+                if (err != null)
                 {
-                    return (null, uint.Parse(s));
+                    return new ValidationResult(false, err.Message);
                 }
 
-                catch (Exception e)
-                {
-                    return (new ArgumentException($"Illegal characters or {e.Message}"), null);
-                }
-
+                return res < Min || res > Max
+                    ? new ValidationResult(false, $"Value must be between {Min} and {Max}")
+                    : ValidationResult.ValidResult;
             }
 
-            var (err, res) = TryParse(value);
-            if (err != null)
+            public Validation(uint min, uint max)
             {
-                return new ValidationResult(false, err.Message);
+                Max = max;
+                Min = min;
             }
-
-            return res < _minValue || res > _maxValue
-                ? new ValidationResult(false, $"Value must be between {_minValue} and {_maxValue}")
-                : ValidationResult.ValidResult;
         }
 
-        public static Func<object, CultureInfo, ValidationResult> ValidateStat(Stat x) => x.Validate;
+        public ValidationRule Validate() => new Validation(_minValue, _maxValue);
     }
 }

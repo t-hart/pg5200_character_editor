@@ -43,7 +43,6 @@ namespace CharacterEditor
         public StatRow()
         {
             InitializeComponent();
-            DataContext = this;
         }
     }
 }

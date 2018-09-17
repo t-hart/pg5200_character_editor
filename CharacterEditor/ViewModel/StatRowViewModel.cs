@@ -11,7 +11,7 @@ using JetBrains.Annotations;
 
 namespace CharacterEditor.ViewModel
 {
-    class StatRowViewModel : ViewModelBase
+    public class StatRowViewModel : ViewModelBase
     {
         [NotNull] private Stat _stat;
 

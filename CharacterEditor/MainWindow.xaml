@@ -13,25 +13,6 @@
         Title="Character creation"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
 
-    <Window.Resources>
-        <DataTemplate x:Key="TaskRowTemplate" DataType="model:Stat">
-            <Grid Background="#0000">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Label Content="{Binding DisplayName}" HorizontalAlignment="Right" Grid.Column="0" Margin="5,1,5,0" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="25" Width="35"/>
-                <TextBox HorizontalAlignment="Center"  TextWrapping="Wrap" Text="{Binding Value}" Grid.Column="1" Width="20" VerticalAlignment="Center" HorizontalContentAlignment="Right" Height="18" Margin="5,0"/>
-                <Button Content="+" Grid.Column="2" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="20" Padding="1" Height="20" Margin="5,0" Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.IncrementCommand}" CommandParameter="{Binding}"/>
-                <Button Content="-" Grid.Column="3" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="20" Padding="1" Height="20" Margin="5,0" Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.DecrementCommand}" CommandParameter="{Binding}"/>
-                <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center"  VerticalAlignment="Center" Padding="1" Height="20" Width="32" Margin="5,0" Command="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=DataContext.ResetCommand}" CommandParameter="{Binding}"/>
-            </Grid>
-        </DataTemplate>
-    </Window.Resources>
-
     <Grid x:Name="LayoutRoot">
         <Grid HorizontalAlignment="Left" Height="251" Margin="10,10,0,0" VerticalAlignment="Top" Width="530">
             <Grid.ColumnDefinitions>
@@ -54,70 +35,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Grid HorizontalAlignment="Center" Width="175" Background="#FFDBDBDB" Grid.ColumnSpan="6" Grid.Row="1" Panel.ZIndex="-4" Grid.RowSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="35*"/>
-                    <ColumnDefinition Width="34*"/>
-                    <ColumnDefinition Width="35*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="9*"/>
-                    <RowDefinition Height="29*"/>
-                    <RowDefinition Height="28*"/>
-                    <RowDefinition Height="28*"/>
-                    <RowDefinition Height="28*"/>
-                    <RowDefinition Height="28*"/>
-                    <RowDefinition Height="28*"/>
-                    <RowDefinition Height="28*"/>
-                </Grid.RowDefinitions>
-                <Label Content="{Binding Character.Strength.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,1,0.333,0" Grid.Row="3" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
-                <Label Content="{Binding Character.Dexterity.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0,0.333,0" Grid.Row="4"
-                       Grid.Column="0" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
-                <Label Content="{Binding Character.Constitution.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0,0.333,0" Grid.Row="5"
-                       Grid.Column="0" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
-                <Label Content="{Binding Character.Intelligence.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,1,0.333,0" Grid.Row="6"
-                       Grid.Column="0" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
-                <Label Content="{Binding Character.Wisdom.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,0,0.333,0" Grid.Row="7"
-                       Grid.Column="0" VerticalAlignment="Top" HorizontalContentAlignment="Right"/>
-                <Label Content="{Binding Character.Charisma.DisplayName, Mode=OneWay}" HorizontalAlignment="Right" Margin="0,1,0.333,0" Grid.Row="8"
-                       Grid.Column="0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="34"/>
-                <Label Content="ATTRIBUTES" HorizontalAlignment="Left" VerticalAlignment="Center" Height="36" Margin="10,3,0,3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" Grid.ColumnSpan="5"
-                       Grid.Column="0" Width="155" BorderBrush="Black" Grid.Row="0" Grid.RowSpan="3"/>
-                <TextBox HorizontalAlignment="Center" Margin="7.667,7,4.333,3" TextWrapping="Wrap" Text="{Binding Strength}" Grid.Row="3" Grid.Column="1" Width="20" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                <TextBox HorizontalAlignment="Center" Margin="7.667,5,4.333,2" TextWrapping="Wrap" Text="{Binding Dexterity}" Grid.Row="4" Grid.Column="1" Width="20" Height="21" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                <TextBox HorizontalAlignment="Center" Margin="7.667,6,4.333,4" TextWrapping="Wrap" Text="{Binding Constitution}" Width="20" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                <TextBox HorizontalAlignment="Center" Margin="7.667,7,4.333,3" TextWrapping="Wrap" Text="{Binding Intelligence}" Width="20" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                <TextBox HorizontalAlignment="Center" Margin="7.667,6,4.333,4" TextWrapping="Wrap" Text="{Binding Wisdom}" Width="20" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                <TextBox HorizontalAlignment="Center" Margin="7.667,6,4.333,4" TextWrapping="Wrap" Text="{Binding Charisma}" Width="20" Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"/>
-                <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" Margin="8.667,5,2.667,3" Grid.Row="3" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Character.Strength}"/>
-                <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8.333,5,3.667,3" Grid.Row="3" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Strength}"/>
-                <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,5,2.667,3" Grid.Row="3" VerticalAlignment="Center" Padding="1"
-                        Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Strength, Mode=OneWay}"/>
-                <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" Margin="8.667,5,2.667,3" Grid.Row="4" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Dexterity}"/>
-                <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8.333,5,3.667,3" Grid.Row="4" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Dexterity}"/>
-                <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,5,2.667,3" Grid.Row="4" VerticalAlignment="Center" Padding="1"
-                        Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Dexterity, Mode=OneWay}"/>
-                <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" Margin="8.667,5,2.667,3" Grid.Row="5" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Constitution}"/>
-                <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8.333,5,3.667,3" Grid.Row="5" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Constitution}"/>
-                <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,5,2.667,3" Grid.Row="5" VerticalAlignment="Center" Padding="1"
-                        Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Constitution, Mode=OneWay}"/>
-                <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" Margin="8.667,5,2.667,3" Grid.Row="6" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Intelligence}"/>
-                <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8.333,5,3.667,3" Grid.Row="6" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Intelligence}"/>
-                <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,5,2.667,3" Grid.Row="6" VerticalAlignment="Center" Padding="1"
-                        Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Intelligence, Mode=OneWay}"/>
-                <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" Margin="8.667,5,2.667,3" Grid.Row="7" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Wisdom}"/>
-                <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8.333,5,3.667,3" Grid.Row="7" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Wisdom}"/>
-                <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,5,2.667,3" Grid.Row="7" VerticalAlignment="Center" Padding="1"
-                        Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Wisdom, Mode=OneWay}"/>
-                <Button Content="+" Grid.Column="2" HorizontalAlignment="Center" Margin="8.667,5,2.667,3" Grid.Row="8" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding IncrementCommand, Mode=OneWay}" CommandParameter="{Binding Charisma}"/>
-                <Button Content="-" Grid.Column="3" HorizontalAlignment="Center" Margin="8.333,5,3.667,3" Grid.Row="8" VerticalAlignment="Center" Width="20" Padding="1" Command="{Binding DecrementCommand, Mode=OneWay}" CommandParameter="{Binding Charisma}"/>
-                <Button Content="Reset" Grid.Column="4" HorizontalAlignment="Center" Margin="8.333,5,2.667,3" Grid.Row="8" VerticalAlignment="Center" Padding="1"
-                        Command="{Binding ResetCommand, Mode=OneWay}" CommandParameter="{Binding Character.Charisma, Mode=OneWay}"/>
-            </Grid>
-            <Grid Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="6" HorizontalAlignment="Center" Grid.RowSpan="2">
+            <Grid Grid.Row="1" Grid.ColumnSpan="5" HorizontalAlignment="Center" Grid.RowSpan="2" Margin="26,0.333,0.333,0.333" Background="#FFD7D7D7">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -128,13 +46,12 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Label Content="ATTRIBUTES"  VerticalAlignment="Center"  FontWeight="Bold" HorizontalAlignment="Center"/>
-                <ContentControl Grid.Row="1" ContentTemplate="{StaticResource TaskRowTemplate}" Content="{Binding Character.Strength}" />
-                <ContentControl Grid.Row="2" ContentTemplate="{StaticResource TaskRowTemplate}" Content="{Binding Character.Dexterity}"/>
-                <ContentControl Grid.Row="3" ContentTemplate="{StaticResource TaskRowTemplate}" Content="{Binding Character.Constitution}"/>
-                <ContentControl Grid.Row="4" ContentTemplate="{StaticResource TaskRowTemplate}" Content="{Binding Character.Intelligence}"/>
-                <ContentControl Grid.Row="5" ContentTemplate="{StaticResource TaskRowTemplate}" Content="{Binding Character.Wisdom}"/>
-                <ContentControl Grid.Row="6" ContentTemplate="{StaticResource TaskRowTemplate}" Content="{Binding Character.Charisma}"/>
-                <characterEditor:StatRow DataContext="{Binding Character.Strength}"/>
+                <characterEditor:StatRow Grid.Row="1" DataContext="{Binding Strength}" />
+                <characterEditor:StatRow Grid.Row="2" DataContext="{Binding Dexterity}" />
+                <characterEditor:StatRow Grid.Row="3" DataContext="{Binding Constitution}" />
+                <characterEditor:StatRow Grid.Row="4" DataContext="{Binding Intelligence}" />
+                <characterEditor:StatRow Grid.Row="5" DataContext="{Binding Wisdom}" />
+                <characterEditor:StatRow Grid.Row="6" DataContext="{Binding Charisma}" />
             </Grid>
             <Button Content="Save" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Grid.ColumnSpan="3" Grid.Column="6" Grid.Row="2"/>
             <Button Content="Cancel" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="100" Grid.ColumnSpan="3" Grid.Column="9" Grid.Row="2"/>
