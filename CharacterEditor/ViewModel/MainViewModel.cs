@@ -23,7 +23,7 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        private Character _character = Character.Default;
+        private Character _character = new Character("Gandalf", Race.Giant, level:200);
         public Character Character
         {
             get => _character;

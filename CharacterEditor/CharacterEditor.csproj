@@ -90,7 +90,6 @@
     <Compile Include="Model\IDefault.cs" />
     <Compile Include="Model\IResettable.cs" />
     <Compile Include="Model\Race.cs" />
-    <Compile Include="Model\RaceToIndexConverter.cs" />
     <Compile Include="Model\Stat.cs" />
     <Compile Include="StatRow.xaml.cs">
       <DependentUpon>StatRow.xaml</DependentUpon>
