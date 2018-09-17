@@ -43,7 +43,6 @@ namespace CharacterEditor.ViewModel
             set => Race = Races[value];
         }
 
-
         public Race Race
         {
             get => Character.Race;
@@ -80,7 +79,7 @@ namespace CharacterEditor.ViewModel
             set
             {
                 var previousValue = Level;
-                Character.Level.Value = previousValue;
+                Character.Level.Value = value;
                 if (previousValue != Level)
                 {
                     RaisePropertyChanged();
