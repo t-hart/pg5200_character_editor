@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace CharacterEditor.Model
 {
-    public interface IAddable
+    public interface ICounter
     {
-        IAddable Add(uint x);
+        ICounter Increment(uint x);
+        ICounter Decrement(uint x);
     }
 }

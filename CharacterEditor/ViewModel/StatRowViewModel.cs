@@ -33,8 +33,8 @@ namespace CharacterEditor.ViewModel
         {
             _stat = stat;
             ResetCommand = new RelayCommand<IResettable>(x => Set(ref x, x.Reset()));
-            IncrementCommand = new RelayCommand<IAddable>(x => Set(ref x, x.Add(1)));
-            DecrementCommand = new RelayCommand<ISubtractable>(x => Set(ref x, x.Subtract(1)));
+            IncrementCommand = new RelayCommand<ICounter>(x => Set(ref x, x.Increment(1)));
+            DecrementCommand = new RelayCommand<ICounter>(x => Set(ref x, x.Decrement(1)));
         }
     }
 }

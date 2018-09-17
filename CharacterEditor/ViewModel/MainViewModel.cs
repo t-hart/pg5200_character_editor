@@ -195,10 +195,10 @@ namespace CharacterEditor.ViewModel
                 });
 
             ResetCommand = new RelayCommand(() => Strength = 0);
-            // IncrementCommand = new RelayCommand<IAddable>(x => { x.Add(1); RaisePropertyChanged(); });
+            // IncrementCommand = new RelayCommand<ICounter>(x => { x.Increment(1); RaisePropertyChanged(); });
             ResetCommand = new RelayCommand<IResettable>(x => Set(ref x, x.Reset()));
-            IncrementCommand = new RelayCommand<IAddable>(x => Set(ref x, x.Add(1)));
-            DecrementCommand = new RelayCommand<ISubtractable>(x => Set(ref x, x.Subtract(1)));
+            IncrementCommand = new RelayCommand<Model.ICounter>(x => Set(ref x, x.Increment(1)));
+            DecrementCommand = new RelayCommand<ICounter>(x => Set(ref x, x.Decrement(1)));
             // IncrementCommand = new RelayCommand(() => Strength += 1);
             DecrementCommand = new RelayCommand(() => Strength -= 1);
             (Races, _raceIndices) =

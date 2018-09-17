@@ -8,7 +8,7 @@ using JetBrains.Annotations;
 
 namespace CharacterEditor.Model
 {
-    public class Stat : ValidationRule, IResettable, IAddable, ISubtractable
+    public class Stat : ValidationRule, IResettable, ICounter
     {
         public string Name { get; }
         public string DisplayName { get; }
@@ -41,13 +41,13 @@ namespace CharacterEditor.Model
             return this;
         }
 
-        public IAddable Add(uint x)
+        public ICounter Increment(uint x)
         {
             Value += x;
             return this;
         }
 
-        public ISubtractable Subtract(uint x)
+        public ICounter Decrement(uint x)
         {
             Value -= x;
             return this;
