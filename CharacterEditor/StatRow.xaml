@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:CharacterEditor.ViewModel"
              xmlns:model="clr-namespace:CharacterEditor.Model"
-             mc:Ignorable="d" d:DesignWidth="185.333" Background="#3FFF" Height="25"
+             mc:Ignorable="d" d:DesignWidth="185.333" Background="#0FFF" Height="25"
              d:DataContext="{d:DesignData StatRowViewModel}">
     <Grid Background="#0000">
         <Grid.ColumnDefinitions>

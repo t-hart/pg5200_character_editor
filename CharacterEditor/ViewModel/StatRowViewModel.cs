@@ -13,28 +13,24 @@ namespace CharacterEditor.ViewModel
 {
     public class StatRowViewModel : ViewModelBase
     {
-        [NotNull] private Stat _stat;
-
-        [NotNull] public Stat Stat
-        {
-            get => _stat;
-            set
-            {
-                if (value == Stat) { return; } 
-                _stat = value;
-                RaisePropertyChanged();
-            }
-        }
+        [NotNull] public Stat Stat { get; }
         public ICommand IncrementCommand { get; }
         public ICommand DecrementCommand { get; }
         public ICommand ResetCommand { get; }
 
         public StatRowViewModel([NotNull] Stat stat)
         {
-            _stat = stat;
-            ResetCommand = new RelayCommand<IResettable>(x => Set(ref x, x.Reset()));
-            IncrementCommand = new RelayCommand<ICounter>(x => Set(ref x, x.Increment(1)));
-            DecrementCommand = new RelayCommand<ICounter>(x => Set(ref x, x.Decrement(1)));
+            Stat = stat;
+
+            ResetCommand = new RelayCommand<IResettable>(x => Update(x, x.Reset()));
+            IncrementCommand = new RelayCommand<ICounter>(x => Update(x, x.Increment(1)));
+            DecrementCommand = new RelayCommand<ICounter>(x => Update(x, x.Decrement(1)));
+
+            void Update<T>(T field, T newVal)
+            {
+                Set(ref field, newVal);
+                RaisePropertyChanged("");
+            }
         }
     }
 }
