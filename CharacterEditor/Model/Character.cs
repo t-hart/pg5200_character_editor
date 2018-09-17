@@ -24,9 +24,11 @@ namespace CharacterEditor.Model
             Wisdom.Reset();
             Charisma.Reset();
             Level.Reset();
-            Race = Race.Human;
+            Race = Race.Unset;
             return this;
         }
+
+        public static Character Default => new Character("", Race.Unset);
 
         public Character([NotNull] string name, Race race, uint strength = 0, uint dexterity = 0, uint constitution = 0, uint intelligence = 0, uint wisdom = 0, uint charisma = 0, uint level = 1)
         {

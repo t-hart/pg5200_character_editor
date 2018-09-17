@@ -8,6 +8,7 @@ namespace CharacterEditor.Model
 {
     public enum Race
     {
+        Unset,
         Human,
         Dwarf,
         Elf,

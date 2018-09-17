@@ -1,4 +1,4 @@
-﻿using System.Windows;
+using System.Windows;
 using CharacterEditor.ViewModel;
 
 namespace CharacterEditor
@@ -18,6 +18,11 @@ namespace CharacterEditor
         }
 
         private void DataGrid_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
 
         }

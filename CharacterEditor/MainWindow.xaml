@@ -12,6 +12,9 @@
         Width="556.787"
         Title="Character creation"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <model:RaceToIndexConverter x:Key="RaceToIndexConverter"/>
+    </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
         <Grid HorizontalAlignment="Left" Height="251" Margin="10,10,0,0" VerticalAlignment="Top" Width="530">
@@ -79,7 +82,7 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Race:" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Right" Grid.RowSpan="2"/>
-                <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="3.667,4,-117,0" VerticalAlignment="Top" Grid.Row="0" Width="120" Grid.RowSpan="2" ItemsSource="{Binding Races}" SelectedIndex="{Binding RaceIndex, Mode=OneWay}"/>
+                <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="3.667,4,-117,0" VerticalAlignment="Top" Grid.Row="0" Width="120" Grid.RowSpan="2" ItemsSource="{Binding Races}" SelectedIndex="{Binding RaceIndex, Mode=OneWay}" SelectionChanged="ComboBox_SelectionChanged"/>
             </Grid>
             <Grid Grid.ColumnSpan="4" Margin="41,0,0,4.667" Grid.Row="0" Grid.Column="9" Width="123">
                 <Grid.ColumnDefinitions>

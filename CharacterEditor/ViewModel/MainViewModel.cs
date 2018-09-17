@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
+using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using CharacterEditor.Model;
@@ -19,7 +23,7 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        private Character _character = new Character("Thorin", Race.Goblin, strength: 16, level: 100);
+        private Character _character = Character.Default;
         public Character Character
         {
             get => _character;
@@ -31,10 +35,15 @@ namespace CharacterEditor.ViewModel
             }
         }
 
-        public List<string> Races { get; }
-        private readonly List<int> _raceIndices;
+        [NotNull] public List<Race> Races { get; }
 
-        public int RaceIndex => _raceIndices[(int)Race];
+        public int RaceIndex
+        {
+            get => Races.FindIndex(x => x == Race);
+            set => Race = Races[value];
+        }
+
+
         public Race Race
         {
             get => Character.Race;
@@ -117,7 +126,6 @@ namespace CharacterEditor.ViewModel
 
                     WelcomeTitle = item.Title;
                 });
-
             Strength = new StatRowViewModel(Character.Strength);
             Dexterity = new StatRowViewModel(Character.Dexterity);
             Constitution = new StatRowViewModel(Character.Constitution);
@@ -125,16 +133,8 @@ namespace CharacterEditor.ViewModel
             Wisdom = new StatRowViewModel(Character.Wisdom);
             Charisma = new StatRowViewModel(Character.Charisma);
 
-            (Races, _raceIndices) =
-                Enum.GetNames(typeof(Race))
-                .Select((x, i) => (x, (int)Enum.Parse(typeof(Race), x)))
-                .OrderBy(tuple => tuple.Item1)
-                .Aggregate((new List<string>(), new List<int>()), (acc, x) =>
-                    {
-                        acc.Item1.Add(x.Item1);
-                        acc.Item2.Add(x.Item2);
-                        return acc;
-                    });
+            Races = new List<Race> {Race.Unset}.Concat(Enum.GetNames(typeof(Race)).Where(x => x != Enum.GetName(typeof(Race), Race.Unset))
+                .OrderBy(x => x).Select(x => (Race) Enum.Parse(typeof(Race), x))).ToList();
         }
 
         ////public override void Cleanup()
