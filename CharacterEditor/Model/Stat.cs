@@ -25,7 +25,7 @@ namespace CharacterEditor.Model
         private readonly uint _maxValue;
         private readonly uint _defaultValue;
 
-        public Stat(uint minValue, uint maxValue, uint defaultValue, [NotNull] string name, [NotNull] string displayName, uint value)
+        private Stat(uint minValue, uint maxValue, uint defaultValue, [NotNull] string name, [NotNull] string displayName, uint value)
         {
             Name = name;
             DisplayName = displayName;
@@ -35,9 +35,19 @@ namespace CharacterEditor.Model
             Value = value;
         }
 
+        private static Stat Attribute(string attrName, string displayName, uint value) => new Stat(0, 20, 0, attrName, displayName, value);
+
+        public static Stat Strength(uint value) => Attribute("Strength", "STR", value);
+        public static Stat Dexterity(uint value) => Attribute("Dexterity", "DEX", value);
+        public static Stat Constitution(uint value) => Attribute("Constitution", "CON", value);
+        public static Stat Intelligence(uint value) => Attribute("Intelligence", "INT", value);
+        public static Stat Wisdom(uint value) => Attribute("Wisdom", "WIS", value);
+        public static Stat Charisma(uint value) => Attribute("Charisma", "CHA", value);
+        public static Stat Level(uint value) => new Stat(1, 100, 1, "Level", "LVL", value);
+
         public Stat([NotNull] Stat stat) => stat.Clone();
 
-        public Stat Clone() => new Stat(_minValue, _maxValue, _defaultValue, Name, DisplayName, Value);
+        private Stat Clone() => new Stat(_minValue, _maxValue, _defaultValue, Name, DisplayName, Value);
 
         public IResettable Reset()
         {
