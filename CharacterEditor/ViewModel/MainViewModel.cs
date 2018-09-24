@@ -96,6 +96,7 @@ namespace CharacterEditor.ViewModel
 
         public ICommand SaveCommand { get; }
         public ICommand LoadCommand { get; }
+        public ICommand ExitCommand { get; } = new RelayCommand<int>(i => Application.Current.Shutdown(i));
 
         /// <summary>
         /// The <see cref="WelcomeTitle" /> property's name.
