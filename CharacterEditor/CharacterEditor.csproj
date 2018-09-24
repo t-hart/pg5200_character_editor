@@ -88,9 +88,13 @@
     <Compile Include="Model\ICounter.cs" />
     <Compile Include="Model\IDataService.cs" />
     <Compile Include="Model\IDefault.cs" />
+    <Compile Include="Model\IO.cs" />
     <Compile Include="Model\IResettable.cs" />
+    <Compile Include="Model\ITimeStamped.cs" />
     <Compile Include="Model\Race.cs" />
+    <Compile Include="Model\Result.cs" />
     <Compile Include="Model\Stat.cs" />
+    <Compile Include="Model\Unit.cs" />
     <Compile Include="StatRow.xaml.cs">
       <DependentUpon>StatRow.xaml</DependentUpon>
     </Compile>

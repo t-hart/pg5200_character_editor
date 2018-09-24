@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -10,6 +12,7 @@ using GalaSoft.MvvmLight;
 using CharacterEditor.Model;
 using GalaSoft.MvvmLight.CommandWpf;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 
 namespace CharacterEditor.ViewModel
 {
@@ -23,7 +26,7 @@ namespace CharacterEditor.ViewModel
     {
         private readonly IDataService _dataService;
 
-        private Character _character = new Character("Gandalf", Race.Giant, level:200);
+        private Character _character = Character.Default;
         public Character Character
         {
             get => _character;
@@ -66,6 +69,8 @@ namespace CharacterEditor.ViewModel
             }
         }
 
+        public string Path { get; set; } = @"character.json";
+
         [NotNull] public StatRowViewModel Strength { get; }
         [NotNull] public StatRowViewModel Dexterity { get; }
         [NotNull] public StatRowViewModel Constitution { get; }
@@ -87,9 +92,9 @@ namespace CharacterEditor.ViewModel
             }
         }
 
-        public ICommand ResetCommand { get; private set; }
-        public ICommand IncrementCommand { get; private set; }
-        public ICommand DecrementCommand { get; private set; }
+
+        public ICommand SaveCommand { get; }
+        public ICommand LoadCommand { get; }
 
         /// <summary>
         /// The <see cref="WelcomeTitle" /> property's name.
@@ -132,8 +137,21 @@ namespace CharacterEditor.ViewModel
             Wisdom = new StatRowViewModel(Character.Wisdom);
             Charisma = new StatRowViewModel(Character.Charisma);
 
-            Races = new List<Race> {Race.Unset}.Concat(Enum.GetNames(typeof(Race)).Where(x => x != Enum.GetName(typeof(Race), Race.Unset))
-                .OrderBy(x => x).Select(x => (Race) Enum.Parse(typeof(Race), x))).ToList();
+            LoadCommand = new RelayCommand<Character>(c =>
+            {
+                IO.Load<Character>(c, Path);
+                RaisePropertyChanged("");
+            });
+
+            SaveCommand = new RelayCommand<ITimeStamped>(x =>
+            {
+                x.Set(DateTimeOffset.Now);
+                IO.Save<ITimeStamped>(x, Path);
+            });
+
+
+            Races = new List<Race> { Race.Unset }.Concat(Enum.GetNames(typeof(Race)).Where(x => x != Enum.GetName(typeof(Race), Race.Unset))
+                .OrderBy(x => x).Select(x => (Race)Enum.Parse(typeof(Race), x))).ToList();
         }
 
         ////public override void Cleanup()

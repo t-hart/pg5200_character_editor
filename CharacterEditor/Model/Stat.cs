@@ -98,12 +98,9 @@ namespace CharacterEditor.Model
                 }
 
                 var (err, res) = TryParse(value);
-                if (err != null)
-                {
-                    return new ValidationResult(false, err.Message);
-                }
-
-                return res < Min || res > Max
+                return err != null
+                    ? new ValidationResult(false, err.Message)
+                    : res < Min || res > Max
                     ? new ValidationResult(false, $"Value must be between {Min} and {Max}")
                     : ValidationResult.ValidResult;
             }

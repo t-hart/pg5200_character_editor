@@ -1,10 +1,13 @@
+using System;
 using System.Windows.Forms;
 using JetBrains.Annotations;
 
 namespace CharacterEditor.Model
 {
-    public class Character : IResettable
+    public class Character : IResettable, ITimeStamped
     {
+        public DateTimeOffset SaveTime { get; private set; }
+
         [NotNull] public string Name { get; set; }
         [NotNull] public Stat Strength { get; set; }
         [NotNull] public Stat Dexterity { get; set; }
@@ -43,5 +46,9 @@ namespace CharacterEditor.Model
             Charisma = Stat.Charisma(charisma);
             Level = Stat.Level(level);
         }
+
+        public DateTimeOffset Read() => SaveTime;
+
+        public DateTimeOffset Set(DateTimeOffset time) => SaveTime = time;
     }
 }
