@@ -1,12 +1,18 @@
 using System;
 using System.Windows.Forms;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CharacterEditor.Model
 {
     public class Character : IResettable, ITimeStamped
     {
         public DateTimeOffset SaveTime { get; private set; }
+        public string Notes { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
+        public Alignment Alignment { get; set; }
 
         [NotNull] public string Name { get; set; }
         [NotNull] public Stat Strength { get; set; }
@@ -16,6 +22,8 @@ namespace CharacterEditor.Model
         [NotNull] public Stat Wisdom { get; set; }
         [NotNull] public Stat Charisma { get; set; }
         [NotNull] public Stat Level { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public Race Race { get; set; }
 
         public IResettable Reset()

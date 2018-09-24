@@ -31,6 +31,7 @@ namespace CharacterEditor.Model
                          new JsonSerializerSettings
                          {
                              DateFormatString = "yyyy-MM-ddTHH:mm:sszzz",
+                             NullValueHandling = NullValueHandling.Ignore,
                          }));
                     }
 
