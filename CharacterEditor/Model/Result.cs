@@ -21,5 +21,8 @@ namespace CharacterEditor.Model
         public static Result<T> Failure(Exception e) => new Result<T>(e, null);
 
         public static Result<T> Success(T t) => new Result<T>(null, t);
+
+        public bool IsOk => Err == null;
+        public bool IsError => !IsOk;
     }
 }

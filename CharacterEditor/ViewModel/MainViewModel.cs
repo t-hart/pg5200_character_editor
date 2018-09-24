@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -113,6 +114,11 @@ namespace CharacterEditor.ViewModel
             set => Set(ref _welcomeTitle, value);
         }
 
+        private static void Alert(Exception e)
+        {
+            MessageBox.Show(e.Message, "Error");
+        }
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -139,14 +145,25 @@ namespace CharacterEditor.ViewModel
 
             LoadCommand = new RelayCommand<Character>(c =>
             {
-                IO.Load<Character>(c, Path);
-                RaisePropertyChanged("");
+                var result = IO.Load<Character>(c, Path);
+                if (result.IsError)
+                {
+                    Alert(result.Err);
+                }
+                else
+                {
+                    RaisePropertyChanged("");
+                }
             });
 
             SaveCommand = new RelayCommand<ITimeStamped>(x =>
             {
                 x.Set(DateTimeOffset.Now);
-                IO.Save<ITimeStamped>(x, Path);
+                var result = IO.Save<ITimeStamped>(x, Path);
+                if (result.IsError)
+                {
+                    Alert(result.Err);
+                }
             });
 
 
